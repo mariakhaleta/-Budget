@@ -8,9 +8,9 @@ import java.util.Date;
 
 public class Transaction {
 
-    private static Integer transactionsum;
-    private static String transactionPurpose;
-    private static String transactionDate;
+    private Integer transactionsum;
+    private String transactionPurpose;
+    private String transactionDate;
 
     private static Transaction transaction;
 
@@ -20,13 +20,13 @@ public class Transaction {
         this.transactionDate = transactionDate;
     }
 
-    public static synchronized Transaction getInstance(){
+    public static Transaction getInstance(Integer transactionsum, String transactionPurpose, String transactionDate){
         if (transaction == null)
             transaction = new Transaction(transactionsum, transactionPurpose, transactionDate);
         return transaction;
     }
 
-    Integer getTransactionsum() {
+    public Integer getTransactionsum() {
         return transactionsum;
     }
 
@@ -34,11 +34,11 @@ public class Transaction {
         this.transactionsum = transactionsum;
     }
 
-    protected String getTransactionPurpose() {
+    public String getTransactionPurpose() {
         return transactionPurpose;
     }
 
-    private void setTransactionPurpose(String transactionPurpose) {
+    public void setTransactionPurpose(String transactionPurpose) {
         this.transactionPurpose = transactionPurpose;
     }
 
@@ -49,14 +49,11 @@ public class Transaction {
         return date;
     }
 
-    private String getTransactionDate() {
+    public String getTransactionDate() {
         return String.valueOf(transactionDate);
     }
 
-    private void setTransactionDate(String transactionDate) {
+    public void setTransactionDate(String transactionDate) {
         this.transactionDate = transactionDate;
-    }
-
-    public Transaction() {
     }
 }

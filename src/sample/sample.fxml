@@ -24,7 +24,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <RadioButton fx:id="incomeButton" layoutX="48.0" layoutY="125.0" mnemonicParsing="false" onAction="#income" text="Доход">
+            <RadioButton fx:id="incomeButton" layoutX="48.0" layoutY="125.0" mnemonicParsing="false" text="Доход">
                <toggleGroup>
                   <ToggleGroup fx:id="radioGroup" />
                </toggleGroup></RadioButton>
@@ -34,7 +34,7 @@
             <TextField fx:id="transactionPurpose" layoutX="57.0" layoutY="308.0" promptText="Название транзакции" />
             <DatePicker fx:id="transactionDate" layoutX="245.0" layoutY="307.0" promptText="Дата транзакции" />
             <Label layoutX="51.0" layoutY="97.0" text="Создать транзакцию:" />
-            <Button fx:id="finalCaculating" layoutX="473.0" layoutY="306.0" mnemonicParsing="false" onAction="#calculate" text="Добавить" />
+            <Button fx:id="finalCaculating" layoutX="473.0" layoutY="306.0" mnemonicParsing="false" text="Добавить" />
             <Label layoutX="46.0" layoutY="346.0" text="Финальный бюджет на год:">
                <font>
                   <Font size="18.0" />

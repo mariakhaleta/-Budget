@@ -8,8 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.util.ArrayList;
-
 public class Controller {
 
     @FXML
@@ -63,7 +61,6 @@ public class Controller {
     @FXML
     private TextField sumTransansaction;
 
-    private ArrayList<Transaction> transactionArrayList =  new ArrayList<>();
     private static int finalbudget = 0;
     private AbstractTransaction transaction = null;
 
@@ -81,11 +78,12 @@ public class Controller {
         periodTransaction.setToggleGroup(typeTransaction);
 
         initData();
+        System.out.println(transactionData.size());
 
         // устанавливаем тип и значение которое должно хранится в колонке
-        sumShow.setCellValueFactory(new PropertyValueFactory<Transaction, Integer>("sum"));
-        nameShow.setCellValueFactory(new PropertyValueFactory<Transaction, String>("name"));
-        dataShow.setCellValueFactory(new PropertyValueFactory<Transaction, String>("data"));
+        sumShow.setCellValueFactory(new PropertyValueFactory<Transaction, Integer>("transactionsum"));
+        nameShow.setCellValueFactory(new PropertyValueFactory<Transaction, String>("transactionPurpose"));
+        dataShow.setCellValueFactory(new PropertyValueFactory<Transaction, String>("transactionDate"));
         // заполняем таблицу данными
         transactionShow.setItems(transactionData);
 
@@ -102,7 +100,7 @@ public class Controller {
                         Boolean type = false;
                         transaction = new Income();
                         transaction.choice(sum, purpose, date, type);
-                        transactionArrayList.add(transaction.getTransaction());
+                        transactionData.add(transaction.getTransaction());
                         finalbudget += transaction.getTransaction().getTransactionsum();
                     }
                     else if (periodTransaction.isSelected()){
@@ -110,7 +108,7 @@ public class Controller {
                         Boolean type = true;
                         transaction = new Income();
                         transaction.choice(sum, purpose, date, type);
-                        transactionArrayList.add(transaction.getTransaction());
+                        transactionData.add(transaction.getTransaction());
                         finalbudget += transaction.getTransaction().getTransactionsum();
                     }
                 }
@@ -123,7 +121,7 @@ public class Controller {
                         Boolean type = false;
                         transaction = new Cost();
                         transaction.choice(sum, purpose, date, type);
-                        transactionArrayList.add(transaction.getTransaction());
+                        transactionData.add(transaction.getTransaction());
                         finalbudget -= transaction.getTransaction().getTransactionsum();
                     }
                     else if (periodTransaction.isSelected()){
@@ -131,7 +129,7 @@ public class Controller {
                         Boolean type = true;
                         transaction = new Cost();
                         transaction.choice(sum, purpose, date, type);
-                        transactionArrayList.add(transaction.getTransaction());
+                        transactionData.add(transaction.getTransaction());
                         finalbudget -= transaction.getTransaction().getTransactionsum();
                     }
                 }
