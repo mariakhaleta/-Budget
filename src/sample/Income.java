@@ -1,10 +1,5 @@
 package sample;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
-
 public class Income extends AbstractTransaction{
 
     private int income;
@@ -15,32 +10,19 @@ public class Income extends AbstractTransaction{
     }
 
     @Override
-    public void choice(Integer income, String transactionPurpose, String transactionDate, Boolean type){
-//
-//            System.out.println("Тип дохода: 1 - разовый, 2 - периодичный");
-//            switch (count){
-//                case 1:
-//                    finalIncome+=oneTime(income);
-//                break;
-//                case 2:
-//                    finalIncome+=periodic(income);
-//                break;
-//                default:
-//                    System.out.println("Введено неправильное значение.");
-//                    break;
-//            }
+    public void choice(Integer income, String transactionPurpose, String transactionDate, Integer type) {
 
-        if (type = false) {
-            finalIncome+=oneTime(income);
-            mTransaction = new Transaction(finalIncome, transactionPurpose, transactionDate);
+        switch (type) {
+            case 1:
+                finalIncome += oneTime(income);
+                mTransaction = new Transaction(finalIncome, transactionPurpose, transactionDate);
+                break;
+            case 2:
+                finalIncome += periodic(income);
+                mTransaction = new Transaction(finalIncome, transactionPurpose, transactionDate);
+                break;
+            // System.out.println(transactionPurpose);
         }
-
-        if(type = true){
-
-            finalIncome+=periodic(income);
-            mTransaction = new Transaction(finalIncome, transactionPurpose, transactionDate);
-        }
-       // System.out.println(transactionPurpose);
     }
 
     public int oneTime(Integer one){
@@ -51,3 +33,4 @@ public class Income extends AbstractTransaction{
         return period*12;
     }
 }
+

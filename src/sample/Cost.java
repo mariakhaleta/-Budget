@@ -1,28 +1,26 @@
 package sample;
 
-import java.time.LocalDate;
-import java.util.Scanner;
-
 public class Cost extends AbstractTransaction {
 
     private int cost;
-    private Integer finalCost;
+    private int finalCost;
 
     public Cost() {
 
     }
 
     @Override
-    public void choice(Integer cost, String transactionPurpose, String transactionDate, Boolean type){
-        if (type = false) {
-            finalCost+=oneTime(cost);
-            mTransaction = new Transaction(finalCost, transactionPurpose, transactionDate);
-        }
+    public void choice(Integer cost, String transactionPurpose, String transactionDate, Integer type){
 
-        if(type = true){
-
-            finalCost+=periodic(cost);
-            mTransaction = new Transaction(finalCost, transactionPurpose, transactionDate);
+        switch (type) {
+            case 1:
+                finalCost += oneTime(cost);
+                mTransaction = new Transaction(finalCost, transactionPurpose, transactionDate);
+                break;
+            case 2:
+                finalCost += periodic(cost);
+                mTransaction = new Transaction(finalCost, transactionPurpose, transactionDate);
+                break;
         }
     }
 

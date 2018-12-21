@@ -47,6 +47,9 @@ public class Controller {
     private RadioButton depositeButton;
 
     @FXML
+    private TextField procentValue;
+
+    @FXML
     private RadioButton periodTransaction;
 
     @FXML
@@ -62,7 +65,8 @@ public class Controller {
     private TextField sumTransansaction;
 
     private static int finalbudget = 0;
-    private AbstractTransaction transaction = null;
+    private AbstractTransaction transactionIncome = null;
+    private AbstractTransaction transactionCost = null;
 
     private ObservableList<Transaction> transactionData = FXCollections.observableArrayList();
 
@@ -77,7 +81,6 @@ public class Controller {
         onesTransaction.setToggleGroup(typeTransaction);
         periodTransaction.setToggleGroup(typeTransaction);
 
-        initData();
         System.out.println(transactionData.size());
 
         // устанавливаем тип и значение которое должно хранится в колонке
@@ -91,56 +94,65 @@ public class Controller {
             @Override
             public void handle(ActionEvent e) {
 
-               String purpose = transactionPurpose.getText();
-               String date = String.valueOf(transactionDate.getValue());
+                Integer sum = Integer.parseInt(sumTransansaction.getText());
+                String purpose = transactionPurpose.getText();
+                String date = String.valueOf(transactionDate.getValue());
                 if(incomeButton.isSelected()){
 
                     if(onesTransaction.isSelected()) {
-                        int sum = Integer.parseInt(sumTransansaction.getText());
-                        Boolean type = false;
-                        transaction = new Income();
-                        transaction.choice(sum, purpose, date, type);
-                        transactionData.add(transaction.getTransaction());
-                        finalbudget += transaction.getTransaction().getTransactionsum();
+                        Integer type = 1;
+                        transactionIncome = new Income();
+                        transactionIncome.choice(sum, purpose, date, type);
+                        transactionData.add(transactionIncome.getTransaction());
+                        finalbudget += transactionIncome.getTransaction().getTransactionsum();
                     }
                     else if (periodTransaction.isSelected()){
-                        int sum = Integer.parseInt(sumTransansaction.getText());
-                        Boolean type = true;
-                        transaction = new Income();
-                        transaction.choice(sum, purpose, date, type);
-                        transactionData.add(transaction.getTransaction());
-                        finalbudget += transaction.getTransaction().getTransactionsum();
+
+                        Integer type = 2;
+                        transactionIncome = new Income();
+                        transactionIncome.choice(sum, purpose, date, type);
+                        transactionData.add(transactionIncome.getTransaction());
+                        finalbudget += transactionIncome.getTransaction().getTransactionsum();
                     }
-                }
-                finalBudget.setText(String.valueOf(finalbudget));
-
-                if(costButton.isSelected()){
-
+                } else if(costButton.isSelected()){
                     if(onesTransaction.isSelected()) {
-                        int sum = Integer.parseInt(sumTransansaction.getText());
-                        Boolean type = false;
-                        transaction = new Cost();
-                        transaction.choice(sum, purpose, date, type);
-                        transactionData.add(transaction.getTransaction());
-                        finalbudget -= transaction.getTransaction().getTransactionsum();
+
+                        Integer type = 1;
+                        transactionCost = new Cost();
+                        System.out.println(sum);
+                        transactionCost.choice(sum, purpose, date, type);
+                        transactionData.add(transactionCost.getTransaction());
+                        finalbudget -= transactionCost.getTransaction().getTransactionsum();
                     }
                     else if (periodTransaction.isSelected()){
-                        int sum = Integer.parseInt(sumTransansaction.getText());
-                        Boolean type = true;
-                        transaction = new Cost();
-                        transaction.choice(sum, purpose, date, type);
-                        transactionData.add(transaction.getTransaction());
-                        finalbudget -= transaction.getTransaction().getTransactionsum();
+
+                        Integer type = 2;
+                        transactionCost = new Cost();
+                        transactionCost.choice(sum, purpose, date, type);
+                        transactionData.add(transactionCost.getTransaction());
+                        finalbudget -= transactionCost.getTransaction().getTransactionsum();
                     }
+                } else if(depositeButton.isSelected()){
+
+                    Integer type = Integer.valueOf(procentValue.getText());
+                    transactionCost = new Deposite();
+                    //System.out.println(sum);
+                    transactionCost.choice(sum, purpose, date, type);
+                    transactionData.add(transactionCost.getTransaction());
+                    finalbudget += transactionCost.getTransaction().getTransactionsum();
+                }
+                else if(crediteButton.isSelected()){
+
+                    Integer type = Integer.valueOf(procentValue.getText());
+                    transactionCost = new Credite();
+                    //System.out.println(sum);
+                    transactionCost.choice(sum, purpose, date, type);
+                    transactionData.add(transactionCost.getTransaction());
+                    finalbudget += transactionCost.getTransaction().getTransactionsum();
                 }
                 finalBudget.setText(String.valueOf(finalbudget));
             }
         });
 
-    }
-
-    private void initData() {
-        transactionData.add(new Transaction(100, "На лечение",  "2018/12/11"));
-        transactionData.add(new Transaction(200, "На лечение",  "2018/12/11"));
     }
 }
